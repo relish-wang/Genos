@@ -1,0 +1,3 @@
+include ':app'
+include ':genos'
+include ':genos-nop'
