@@ -97,6 +97,19 @@ public final class Genos extends Service {
     public static void equip(Capability capability, String... filterActivityNames) {
     }
 
+    /**
+     * 装载能力模块
+     * 装载能力需要在启动杰诺斯之前
+     *
+     * @param capability          能力
+     * @param enable              是否默认启用
+     * @param filterActivityNames 在这些Activity里不需要展示@杰诺斯
+     *
+     * @see Genos#launch(Application)
+     */
+    public static void equip(Capability capability, boolean enable, String... filterActivityNames) {
+    }
+
 
     public class GenosBinder extends Binder {
         Genos getService() {

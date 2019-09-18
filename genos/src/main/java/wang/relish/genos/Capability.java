@@ -3,6 +3,8 @@ package wang.relish.genos;
 import android.content.Context;
 import android.view.View;
 import java.lang.String;
+import wang.relish.genos.Genos;
+import wang.relish.genos.GenosBrain;
 
 /**
  * 装载到{@link Genos 杰诺斯}上的能力(可以理解为是一个plugin)

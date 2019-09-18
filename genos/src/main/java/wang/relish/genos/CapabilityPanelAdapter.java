@@ -53,12 +53,16 @@ import java.util.List;
             holder.stCapability.setEnabled(false);
         }
         if (capability instanceof SwitchableCapability) {
+            holder.tvCapabilityName.setEnabled(isEnable != null && isEnable);
+            holder.stCapability.setEnabled(true);
             holder.stCapability.setVisibility(View.VISIBLE);
             final SwitchableCapability switchableCapability = (SwitchableCapability) capability;
             holder.stCapability.setOnCheckedChangeListener(null);
             holder.stCapability.setChecked(isEnable != null && isEnable);
             holder.stCapability.setOnCheckedChangeListener((button, isChecked) -> {
                 mStatusMap.put(capabilityName, isChecked);
+                notifyDataSetChanged();
+                // MAYBE if it is a async operation with uncertainty?
                 switchableCapability.onCapabilitySwitched(button, isChecked);
             });
             if (!mInitStateMap.get(position)) {
@@ -94,9 +98,9 @@ import java.util.List;
         }
     }
 
-    void addCapability(Capability capability) {
+    void addCapability(Capability capability, boolean enable) {
         mData.add(capability);
-        mStatusMap.put(capability.capabilityName(), true);
+        mStatusMap.put(capability.capabilityName(), enable);
         notifyDataSetChanged();
     }
 

@@ -1,5 +1,8 @@
 package wang.relish.genos;
 
+import wang.relish.genos.Genos;
+import wang.relish.genos.GenosBrain;
+import wang.relish.genos.Capability;
 
 /**
  * 杰诺斯之脑<br>

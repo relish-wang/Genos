@@ -85,6 +85,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.lang.String;
+import wang.relish.genos.Capability;
 
 
 /**
@@ -179,7 +180,11 @@ public final class Genos extends Service {
         context.bindService(new Intent(context, Genos.class), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                sInstance = ((GenosBinder) service).getService();
+                if (service == null) return;
+                if (!(service instanceof GenosBinder)) return;
+                final Genos genos = ((GenosBinder) service).getService();
+                if (genos == null) return;
+                sInstance = genos;
             }
 
             @Override
@@ -250,6 +255,20 @@ public final class Genos extends Service {
      * @see Genos#launch(Application)
      */
     public static void equip(Capability capability, String... filterActivityNames) {
+        equip(capability, !(capability instanceof SwitchableCapability), filterActivityNames);
+    }
+
+    /**
+     * 装载能力模块
+     * 装载能力需要在启动杰诺斯之前
+     *
+     * @param capability          能力
+     * @param enable              是否默认启用
+     * @param filterActivityNames 在这些Activity里不需要展示@杰诺斯
+     *
+     * @see Genos#launch(Application)
+     */
+    public static void equip(Capability capability, boolean enable, String... filterActivityNames) {
         if (capability == null) return;
         if (sMenuAdapter == null) sMenuAdapter = new CapabilityPanelAdapter();
         if (filterActivityNames != null && filterActivityNames.length > 0) {
@@ -258,9 +277,9 @@ public final class Genos extends Service {
         synchronized (Genos.class) {
             if (isCreated) {
                 capability.onCapabilityPrepared(sContextWrapper, sGenosBrain);
-                sMenuAdapter.addCapability(capability);
+                sMenuAdapter.addCapability(capability, enable);
             } else {
-                sMenuAdapter.addCapability(capability);
+                sMenuAdapter.addCapability(capability, enable);
             }
         }
     }

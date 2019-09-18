@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-
+import wang.relish.genos.Genos;
 
 /**
  * {@link Genos#mGenosWindow 杰诺斯悬浮球}移动，解决触摸和点击冲突
